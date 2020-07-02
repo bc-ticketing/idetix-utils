@@ -1,10 +1,14 @@
 {
   "name": "idetix-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "utils library for interacting with the idetix protocol",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.0",
+    "multihashes": "^0.4.19"
   },
   "repository": {
     "type": "git",
