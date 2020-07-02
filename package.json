@@ -1,0 +1,22 @@
+{
+  "name": "idetix-utils",
+  "version": "1.0.0",
+  "description": "utils library for interacting with the idetix protocol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bc-ticketing/idetix-utils.git"
+  },
+  "keywords": [
+    "idetix"
+  ],
+  "author": "Simon Bachmann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bc-ticketing/idetix-utils/issues"
+  },
+  "homepage": "https://github.com/bc-ticketing/idetix-utils#readme"
+}
