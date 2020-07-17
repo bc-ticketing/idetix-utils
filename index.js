@@ -31,16 +31,18 @@ exports.printQueues = async (event, type) => {
   for (i = 1; i <= granularity.toNumber(); i++) {
     let percentage = (100 / granularity.toNumber()) * i;
 
-    let queue = await event.buyingQueue(type, percentage);
+    let buyingQueue = await event.buyingQueue(type, percentage);
+    let headBuying = buyingQueue["head"];
+    let tailBuying = buyingQueue["tail"];
+    let numberTicketsBuying = buyingQueue["numberTickets"];
 
-    let head = queue["head"];
-    let tail = queue["tail"];
-    let numberTickets = queue["numberTickets"];
-    let queueString = (percentage + "% (" + numberTickets + ")").padEnd(12);
+    let queueString = (percentage + "% (" + numberTicketsBuying + ")").padEnd(
+      12
+    );
 
     // buying queue
     let buyingString = "";
-    for (j = tail - 1; j >= head; --j) {
+    for (j = tailBuying - 1; j >= headBuying; --j) {
       let queueEntryBuying = await event.getQueuedUserBuying(
         type,
         percentage,
@@ -50,9 +52,15 @@ exports.printQueues = async (event, type) => {
     }
     queueString += buyingString.padStart(15) + " --- ";
 
+    let sellingQueue = await event.sellingQueue(type, percentage);
+
+    let headSelling = sellingQueue["head"];
+    let tailSelling = sellingQueue["tail"];
+    let numberTicketsSelling = sellingQueue["numberTickets"];
+
     //selling queue
     let sellingString = "";
-    for (j = head; j < head; j++) {
+    for (j = headSelling; j < tailSelling; j++) {
       let queueEntrySelling = await event.getQueuedUserSelling(
         type,
         percentage,
@@ -61,7 +69,7 @@ exports.printQueues = async (event, type) => {
       sellingString += queueEntrySelling["quantity"];
     }
 
-    queueString += sellingString;
+    queueString += sellingString.padEnd(15) + ("(" + numberTicketsBuying + ")");
 
     console.log(queueString);
   }
