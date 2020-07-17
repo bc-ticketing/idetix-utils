@@ -53,7 +53,7 @@ exports.printQueues = async (event, type) => {
     //selling queue
     let sellingString = "";
     for (j = head; j < head; j++) {
-      let queueEntrySelling = await event.getQueuedUserBuying(
+      let queueEntrySelling = await event.getQueuedUserSelling(
         type,
         percentage,
         j
