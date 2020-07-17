@@ -27,6 +27,11 @@ exports.nonFungibleBaseId = new BigNumber(
 );
 
 exports.printQueues = async (event, type) => {
+  const queueFormatLength = 15;
+  const percentageFormatLength = 7;
+  const quantityFormatLength = 6;
+  const queueSeparator = " --- ";
+
   const granularity = await event.granularity();
   for (i = 1; i <= granularity.toNumber(); i++) {
     let percentage = (100 / granularity.toNumber()) * i;
@@ -36,8 +41,9 @@ exports.printQueues = async (event, type) => {
     let tailBuying = buyingQueue["tail"];
     let numberTicketsBuying = buyingQueue["numberTickets"];
 
-    let queueString = (percentage + "% (" + numberTicketsBuying + ")").padEnd(
-      12
+    let queueString = (percentage + "%").padEnd(percentageFormatLength);
+    queueString += ("(" + numberTicketsBuying + ")").padEnd(
+      quantityFormatLength
     );
 
     // buying queue
@@ -50,7 +56,7 @@ exports.printQueues = async (event, type) => {
       );
       buyingString += queueEntryBuying["quantity"];
     }
-    queueString += buyingString.padStart(15) + " --- ";
+    queueString += buyingString.padStart(queueFormatLength) + queueSeparator;
 
     let sellingQueue = await event.sellingQueue(type, percentage);
 
@@ -69,8 +75,23 @@ exports.printQueues = async (event, type) => {
       sellingString += queueEntrySelling["quantity"];
     }
 
-    queueString += sellingString.padEnd(15) + ("(" + numberTicketsBuying + ")");
+    queueString +=
+      sellingString.padEnd(queueFormatLength) +
+      ("(" + numberTicketsSelling + ")").padStart(quantityFormatLength);
 
     console.log(queueString);
   }
+  let totalString = "Total".padEnd(percentageFormatLength);
+  totalString += (
+    "(" +
+    (await event.totalInBuying(type)).toString() +
+    ")"
+  ).padEnd(queueFormatLength + quantityFormatLength);
+  totalString += queueSeparator;
+  totalString += (
+    "(" +
+    (await event.totalInSelling(type)).toString() +
+    ")"
+  ).padStart(queueFormatLength + quantityFormatLength);
+  console.log(totalString);
 };
