@@ -1,7 +1,13 @@
 const multihashes = require("multihashes");
 const BigNumber = require("bignumber.js");
 
-exports.cidToArgs = (cid) => {
+// number is is equivalent to 1(128*0)
+const fungibleBaseId = new BigNumber("340282366920938463463374607431768211456");
+
+// which is equivalent in binary to 1(126*0)1(128*0)
+const nonFungibleBaseId = new BigNumber("57896044618658097711785492504343953926975274699741220483192166611388333031424");
+
+const cidToArgs = (cid) => {
   const mh = multihashes.fromB58String(Buffer.from(cid));
   return {
     hashFunction: "0x" + mh.slice(0, 1).toString("hex"),
@@ -10,25 +16,17 @@ exports.cidToArgs = (cid) => {
   };
 };
 
-exports.argsToCid = (hashFunction, size, digest) => {
+const argsToCid = (hashFunction, size, digest) => {
   const hashHex = hashFunction.slice(2) + size.slice(2) + digest.slice(2);
   const hashBytes = Buffer.from(hashHex, "hex");
   return multihashes.toB58String(hashBytes);
 };
 
-// number is is equivalent to 1(128*0)
-const fBaseId = new BigNumber("340282366920938463463374607431768211456");
-exports.fungibleBaseId = fBaseId;
+const prettyPrintAddress = (address) => address.slice(0, 6) + "..." + address.slice(-4);
 
-// which is equivalent in binary to 1(126*0)1(128*0)
-const nfBaseId = new BigNumber("57896044618658097711785492504343953926975274699741220483192166611388333031424");
-exports.nonFungibleBaseId = nfBaseId;
+const getNfId = (nfTicketId) => nfTicketId.minus(nonFungibleBaseId);
 
-exports.prettyPrintAddress = (address) => address.slice(0, 6) + "..." + address.slice(-4);
-
-exports.getNfId = (nfTicketId) => nfTicketId.minus(nfBaseId);
-
-exports.printQueues = async (event, type) => {
+const printQueues = async (event, type) => {
   const queueFormatLength = 15;
   const percentageFormatLength = 7;
   const quantityFormatLength = 6;
@@ -76,7 +74,7 @@ exports.printQueues = async (event, type) => {
   console.log(totalString);
 };
 
-exports.printNfSellOrders = async(event, type) => {
+const printNfSellOrders = async(event, type) => {
   let eventMetaData = await event.ticketTypeMeta(type);
   let supply = eventMetaData["supply"];
   const ticketIdFormatLength = 9
@@ -101,4 +99,15 @@ exports.printNfSellOrders = async(event, type) => {
     }
   }
   console.log("\nTotal: " + await event.totalInSelling(type));
+}
+
+export{
+  fungibleBaseId,
+  nonFungibleBaseId,
+  cidToArgs,
+  argsToCid,
+  prettyPrintAddress,
+  getNfId,
+  printQueues,
+  printNfSellOrders
 }
