@@ -17,16 +17,16 @@ exports.argsToCid = (hashFunction, size, digest) => {
 };
 
 // number is is equivalent to 1(128*0)
-const fungibleBaseId = new BigNumber("340282366920938463463374607431768211456");
-exports.fungibleBaseId;
+const fBaseId = new BigNumber("340282366920938463463374607431768211456");
+exports.fungibleBaseId = fBaseId;
 
 // which is equivalent in binary to 1(126*0)1(128*0)
 const nonFungibleBaseId = new BigNumber("57896044618658097711785492504343953926975274699741220483192166611388333031424");
-exports.nonFungibleBaseId;
+exports.nonFungibleBaseId = nfBaseId;
 
 exports.prettyPrintAddress = (address) => address.slice(0, 6) + "..." + address.slice(-4);
 
-exports.getNfId = (nfTicketId) => nfTicketId.minus(nonFungibleBaseId);
+exports.getNfId = (nfTicketId) => nfTicketId.minus(nfBaseId);
 
 exports.printQueues = async (event, type) => {
   const queueFormatLength = 15;

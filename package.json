@@ -1,6 +1,6 @@
 {
   "name": "idetix-utils",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "utils library for interacting with the idetix protocol",
   "main": "index.js",
   "scripts": {
