@@ -101,7 +101,7 @@ const printNfSellOrders = async(event, type) => {
   console.log("\nTotal: " + await event.totalInSelling(type));
 }
 
-export{
+module.exports = {
   fungibleBaseId,
   nonFungibleBaseId,
   cidToArgs,
