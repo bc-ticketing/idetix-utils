@@ -1,0 +1,88 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "const": {
+        "version": "1.0",
+        "event": {
+            "title": "Drake",
+            "description": "Tour 2021 - Zurich"
+        }
+    },
+    "examples": [
+        {
+            "version": "1.0",
+            "event": {
+                "title": "Drake",
+                "description": "Tour 2021 - Zurich"
+            }
+        }
+    ],
+    "required": [
+        "version",
+        "event"
+    ],
+    "properties": {
+        "version": {
+            "$id": "#/properties/version",
+            "type": "string",
+            "title": "The version schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "const": "1.0",
+            "examples": [
+                "1.0"
+            ]
+        },
+        "event": {
+            "$id": "#/properties/event",
+            "type": "object",
+            "title": "The event schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "const": {
+                "title": "Drake",
+                "description": "Tour 2021 - Zurich"
+            },
+            "examples": [
+                {
+                    "title": "Drake",
+                    "description": "Tour 2021 - Zurich"
+                }
+            ],
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "$id": "#/properties/event/properties/title",
+                    "type": "string",
+                    "title": "The title schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "const": "Drake",
+                    "examples": [
+                        "Drake"
+                    ]
+                },
+                "description": {
+                    "$id": "#/properties/event/properties/description",
+                    "type": "string",
+                    "title": "The description schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "const": "Tour 2021 - Zurich",
+                    "examples": [
+                        "Tour 2021 - Zurich"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}

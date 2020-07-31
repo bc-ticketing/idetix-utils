@@ -1,0 +1,211 @@
+
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "const": {
+        "version": "1.0",
+        "approver": {
+            "title": "Idetix",
+            "methods": [
+                {
+                    "level": 1,
+                    "value": "email"
+                },
+                {
+                    "level": 2,
+                    "value": "mobile phone"
+                }
+            ],
+            "url": "http://www.idetix.ch"
+        }
+    },
+    "examples": [
+        {
+            "version": "1.0",
+            "approver": {
+                "title": "Idetix",
+                "methods": [
+                    {
+                        "level": 1,
+                        "value": "email"
+                    },
+                    {
+                        "level": 2,
+                        "value": "mobile phone"
+                    }
+                ],
+                "url": "http://www.idetix.ch"
+            }
+        }
+    ],
+    "required": [
+        "version",
+        "approver"
+    ],
+    "properties": {
+        "version": {
+            "$id": "#/properties/version",
+            "type": "string",
+            "title": "The version schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "const": "1.0",
+            "examples": [
+                "1.0"
+            ]
+        },
+        "approver": {
+            "$id": "#/properties/approver",
+            "type": "object",
+            "title": "The approver schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "const": {
+                "title": "Idetix",
+                "methods": [
+                    {
+                        "level": 1,
+                        "value": "email"
+                    },
+                    {
+                        "level": 2,
+                        "value": "mobile phone"
+                    }
+                ],
+                "url": "http://www.idetix.ch"
+            },
+            "examples": [
+                {
+                    "title": "Idetix",
+                    "methods": [
+                        {
+                            "level": 1,
+                            "value": "email"
+                        },
+                        {
+                            "level": 2,
+                            "value": "mobile phone"
+                        }
+                    ],
+                    "url": "http://www.idetix.ch"
+                }
+            ],
+            "required": [
+                "title",
+                "methods",
+                "url"
+            ],
+            "properties": {
+                "title": {
+                    "$id": "#/properties/approver/properties/title",
+                    "type": "string",
+                    "title": "The title schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "const": "Idetix",
+                    "examples": [
+                        "Idetix"
+                    ]
+                },
+                "methods": {
+                    "$id": "#/properties/approver/properties/methods",
+                    "type": "array",
+                    "title": "The methods schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "const": [
+                        {
+                            "level": 1,
+                            "value": "email"
+                        },
+                        {
+                            "level": 2,
+                            "value": "mobile phone"
+                        }
+                    ],
+                    "examples": [
+                        [
+                            {
+                                "level": 1,
+                                "value": "email"
+                            },
+                            {
+                                "level": 2,
+                                "value": "mobile phone"
+                            }
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/approver/properties/methods/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/approver/properties/methods/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "const": {
+                                    "level": 1,
+                                    "value": "email"
+                                },
+                                "examples": [
+                                    {
+                                        "level": 1,
+                                        "value": "email"
+                                    }
+                                ],
+                                "required": [
+                                    "level",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "level": {
+                                        "$id": "#/properties/approver/properties/methods/items/anyOf/0/properties/level",
+                                        "type": "number",
+                                        "title": "The level schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": 0,
+                                        "const": 1,
+                                        "examples": [
+                                            1
+                                        ]
+                                    },
+                                    "value": {
+                                        "$id": "#/properties/approver/properties/methods/items/anyOf/0/properties/value",
+                                        "type": "string",
+                                        "title": "The value schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "const": "email",
+                                        "examples": [
+                                            "email"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        ]
+                    }
+                },
+                "url": {
+                    "$id": "#/properties/approver/properties/url",
+                    "type": "string",
+                    "title": "The url schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "const": "http://www.idetix.ch",
+                    "examples": [
+                        "http://www.idetix.ch"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}
