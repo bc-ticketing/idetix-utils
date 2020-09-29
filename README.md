@@ -1,6 +1,6 @@
 # idetix-utils
 
-npm package for interacting with the idetix protocol.
+[npm package](https://www.npmjs.com/package/idetix-utils) for interacting with the idetix protocol.
 
 ## Installation
 
