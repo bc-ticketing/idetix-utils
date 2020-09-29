@@ -74,7 +74,7 @@ const printQueues = async (event, type) => {
   console.log(totalString);
 };
 
-const printNfSellOrders = async(event, type) => {
+const printNfSellOrders = async (event, type) => {
   let eventMetaData = await event.ticketTypeMeta(type);
   let supply = eventMetaData["supply"];
   const ticketIdFormatLength = 9
@@ -99,6 +99,51 @@ const printNfSellOrders = async(event, type) => {
     }
   }
   console.log("\nTotal: " + await event.totalInSelling(type));
+}
+
+/**
+ * returns the a BigNumber with the given arguments
+ * @param {boolean} isNf 
+ * @param {integer} typeIndex 
+ * @param {integer} idIndex 
+ */
+const getIdAsBigNumber = (isNf, typeIndex, idIndex=0) => {
+  binaryString = "0b"
+
+  binaryString += isNf?"1":"0";
+  const typeIndexBinString = typeIndex.toString(2);
+  binaryString += new BigNumber(typeIndexBinString, 2).toString(2).padStart(127, "0");
+
+  const idIndexString = idIndex.toString(2);
+  binaryString += new BigNumber(idIndexString, 2).toString(2).padStart(128, "0");
+
+  return new BigNumber(binaryString);
+}
+
+/**
+ * returns if the number represents an non-fungible or fungible ticket type
+ * @param {BigNumber} bigNumber from bignumber.js
+ */
+const isNf = (bigNumber) => {
+  const bigNumString = bigNumber.toString(2);
+  return (bigNumString.length == 256 && bigNumString[0] == "1")?true:false;
+}
+
+/**
+ * returns the actual ticket id which is stored in the lower 128 bits
+ * only relevant for non fungible tickets
+ * @param {BigNumber} bigNumber from bignumber.js
+ */
+const getTicketId = (bigNumber) => {
+  return new BigNumber(bigNumber.toString(2).slice(-128), 2);
+}
+
+/**
+ * returns the actual ticket type which is stored in the upper 128 bits without the nf flag
+ * @param {BigNumber} bigNumber from bignumber.js
+ */
+const getTicketTypeIndex = (bigNumber) => {
+  return new BigNumber(bigNumber.toString(2).padStart(256, "0").slice(1, 128), 2);
 }
 
 module.exports = {
