@@ -154,5 +154,9 @@ module.exports = {
   prettyPrintAddress,
   getNfId,
   printQueues,
-  printNfSellOrders
+  printNfSellOrders,
+  getTicketTypeIndex,
+  getTicketId,
+  isNf,
+  getIdAsBigNumber
 }
